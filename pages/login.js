@@ -66,6 +66,12 @@ export default function About() {
                 <Button variant="contained" color="primary" component={Link} naked href="/">
                     Go to the main page
                 </Button>
+                <br />
+                <br />
+                <br />
+                <Button variant="contained" color="primary" component={Link} naked href="/swr">
+                    Go to swr
+                </Button>
                 <ProTip />
                 <Copyright />
             </Box>
