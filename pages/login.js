@@ -2,12 +2,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Copyright from '../src/Copyright';
 import Link from '../src/Link';
 import ProTip from '../src/ProTip';
 import { authenticateDispatcher } from '../src/redux/dispatchers/authDispatchers';
+import { getAllUsers } from '../src/services/authService';
 
 export default function About() {
     const auth = useSelector(state => state.auth)
@@ -29,6 +30,20 @@ export default function About() {
         }))
     }
 
+    const fetchUsers = () => {
+        getAllUsers().then(data => {
+            console.log('users data', data)
+        }).catch(error => {
+            console.log(error, 'error')
+        })
+    }
+
+    useEffect(() => {
+        if (auth.token) {
+            fetchUsers()
+        }
+    }, [auth])
+
     return (
         <Container maxWidth="sm">
             <Box my={4}>
@@ -38,6 +53,12 @@ export default function About() {
 
                 <Button onClick={auth.token ? handleLogout : handleLogin} variant="contained" color="primary">
                     {auth.token ? 'Logout' : 'Login'}
+                </Button>
+                <br />
+                <br />
+                <br />
+                <Button onClick={fetchUsers} variant="contained" color="primary">
+                    fetch users
                 </Button>
                 <br />
                 <br />

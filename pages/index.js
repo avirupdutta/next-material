@@ -1,7 +1,6 @@
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
 import AppButton from '../src/components/common/AppButton';
 import Copyright from '../src/Copyright';
 import Link from '../src/Link';

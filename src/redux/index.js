@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { applyMiddleware, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunkMiddleware from 'redux-thunk'
@@ -10,6 +10,7 @@ const persistConfig = {
     key: '@MyNextApp',
     storage,
     whitelist: ['auth'], // place to select which state you want to persist
+    timeout: null,
 }
 const persistedReducer = persistReducer(persistConfig, reducer)
 
@@ -46,7 +47,11 @@ export const initializeStore = (preloadedState) => {
     return _store
 }
 
-export function useStore(initialState) {
+export function useStore(initialState, disableMemo = false) {
+    if (disableMemo) {
+        const store = initializeStore(initialState)
+        return store
+    }
     const store = useMemo(() => initializeStore(initialState), [initialState])
     return store
 }
