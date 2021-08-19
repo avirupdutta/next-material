@@ -33,7 +33,9 @@ export async function getStaticProps({ params }) {
     const post = await getPostById(params.id)
 
     // Pass post data to the page via props
-    return { props: { post } }
+    return {
+        props: { post },
+    }
 }
 
 export default PostById

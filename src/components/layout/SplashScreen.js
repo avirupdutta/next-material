@@ -1,7 +1,10 @@
 import { CircularProgress, Paper } from '@material-ui/core'
 import React from 'react'
 
-const SplashScreen = ({ handleMakeAppReady }) => {
+const SplashScreen = ({ handleMakeAppReady = () => { } }) => {
+    React.useEffect(() => {
+        setTimeout(handleMakeAppReady, 2000)
+    }, [])
 
     return (
         <Paper square elevation={0} style={{

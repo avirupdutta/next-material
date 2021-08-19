@@ -12,11 +12,10 @@ import { getAllUsers } from '../src/services/authService';
 export async function getStaticProps(context) {
     const users = await getAllUsers()
 
-    console.log(users)
-
     return {
         props: {
-            users
+            users,
+            revalidate: 10,
         }
     }
 }
@@ -42,6 +41,12 @@ export default function Login({ users }) {
         }))
     }
 
+    const handleFetchUsers = () => {
+        getAllUsers().then(data => {
+            console.log(data)
+        })
+    }
+
     return (
         <Container maxWidth="sm">
             <Box>
@@ -51,6 +56,13 @@ export default function Login({ users }) {
 
                 <Button onClick={auth.token ? handleLogout : handleLogin} variant="contained" color="primary">
                     {auth.token ? 'Logout' : 'Login'}
+                </Button>
+                <br />
+                <br />
+                <br />
+
+                <Button onClick={handleFetchUsers} variant="contained" color="primary">
+                    fetch users
                 </Button>
                 <br />
                 <br />

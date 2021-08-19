@@ -1,4 +1,6 @@
+import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
+import NProgress from 'nprogress';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -7,8 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import AppLayout from '../src/components/layout/AppLayout';
 import { useStore } from '../src/redux';
 
-
 export default function MyApp({ Component, pageProps }) {
+	const router = useRouter()
 	const store = useStore(pageProps.initialReduxState)
 	const persistor = persistStore(store, {}, function () {
 		persistor.persist()
@@ -21,6 +23,26 @@ export default function MyApp({ Component, pageProps }) {
 			jssStyles.parentElement.removeChild(jssStyles);
 		}
 	}, []);
+
+	React.useEffect(() => {
+		const handleStart = (url) => {
+			console.log(`Loading: ${url}`)
+			NProgress.start()
+		}
+		const handleStop = () => {
+			NProgress.done()
+		}
+
+		router.events.on('routeChangeStart', handleStart)
+		router.events.on('routeChangeComplete', handleStop)
+		router.events.on('routeChangeError', handleStop)
+
+		return () => {
+			router.events.off('routeChangeStart', handleStart)
+			router.events.off('routeChangeComplete', handleStop)
+			router.events.off('routeChangeError', handleStop)
+		}
+	}, [router])
 
 	return (
 		<Provider store={store}>

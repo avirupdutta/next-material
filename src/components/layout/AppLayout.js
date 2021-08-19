@@ -8,7 +8,7 @@ import SplashScreen from './SplashScreen'
 const AppLayout = ({ Component, pageProps }) => {
     const dispatch = useDispatch()
     const darkMode = useSelector(state => state.theme)
-    const [appIsReady, setAppIsReady] = useState(true)
+    const [appIsReady, setAppIsReady] = useState(false)
 
     const handleMakeAppReady = () => setAppIsReady(true)
     const handleDarkModeToggle = () => {

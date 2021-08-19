@@ -5,7 +5,7 @@ const sharedPalette = {
         main: '#F4181C',
     },
     secondary: {
-        main: '#000000',
+        main: '#ffffff',
     },
     error: {
         main: '#DB524E',
@@ -27,5 +27,9 @@ export const darkTheme = createMuiTheme({
     palette: {
         ...sharedPalette,
         type: 'dark',
+        background: {
+            paper: '#110000',
+            default: '#110000'
+        }
     },
 });
