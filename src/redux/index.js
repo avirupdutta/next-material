@@ -9,7 +9,7 @@ import reducer from '../redux/reducers'
 const persistConfig = {
     key: '@MyNextApp',
     storage,
-    whitelist: ['auth'], // place to select which state you want to persist
+    whitelist: ['auth', 'theme'], // place to select which state you want to persist
     timeout: null,
 }
 const persistedReducer = persistReducer(persistConfig, reducer)
