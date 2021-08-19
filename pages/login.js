@@ -2,7 +2,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Copyright from '../src/Copyright';
 import Link from '../src/Link';
@@ -10,9 +9,22 @@ import ProTip from '../src/ProTip';
 import { authenticateDispatcher } from '../src/redux/dispatchers/authDispatchers';
 import { getAllUsers } from '../src/services/authService';
 
-export default function About() {
+export async function getStaticProps(context) {
+    const users = await getAllUsers()
+
+    console.log(users)
+
+    return {
+        props: {
+            users
+        }
+    }
+}
+
+export default function Login({ users }) {
     const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    console.log('users', users)
 
     const handleLogin = () => {
         dispatch(authenticateDispatcher({
@@ -30,20 +42,6 @@ export default function About() {
         }))
     }
 
-    const fetchUsers = () => {
-        getAllUsers().then(data => {
-            console.log('users data', data)
-        }).catch(error => {
-            console.log(error, 'error')
-        })
-    }
-
-    useEffect(() => {
-        if (auth.token) {
-            fetchUsers()
-        }
-    }, [auth])
-
     return (
         <Container maxWidth="sm">
             <Box>
@@ -57,8 +55,8 @@ export default function About() {
                 <br />
                 <br />
                 <br />
-                <Button onClick={fetchUsers} variant="contained" color="primary">
-                    fetch users
+                <Button variant="contained" color="primary" component={Link} naked href="/posts">
+                    See All Posts
                 </Button>
                 <br />
                 <br />

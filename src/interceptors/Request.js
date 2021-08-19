@@ -3,7 +3,7 @@ import { useStore } from '../redux';
 const queryString = require('query-string');
 
 const config = {
-    checkToken: true,
+    checkToken: false,
     headers: {}
 }
 

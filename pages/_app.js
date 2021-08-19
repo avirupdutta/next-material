@@ -9,18 +9,10 @@ import { useStore } from '../src/redux';
 
 
 export default function MyApp({ Component, pageProps }) {
-	const [gateLifted, setGateLifted] = React.useState(false)
 	const store = useStore(pageProps.initialReduxState)
 	const persistor = persistStore(store, {}, function () {
 		persistor.persist()
 	})
-
-	const onBeforeLift = () => {
-		// Take an action before the gate lifts
-		setTimeout(() => {
-			setGateLifted(true)
-		}, 2000);
-	}
 
 	React.useEffect(() => {
 		// Remove the server-side injected CSS.
@@ -33,14 +25,14 @@ export default function MyApp({ Component, pageProps }) {
 	return (
 		<Provider store={store}>
 			<PersistGate
-				onBeforeLift={onBeforeLift}
+				loading={null}
 				persistor={persistor}
 			>
 				<Head>
 					<title>My page</title>
 					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
 				</Head>
-				<AppLayout Component={Component} pageProps={pageProps} gateLifted={gateLifted} />
+				<AppLayout Component={Component} pageProps={pageProps} />
 			</PersistGate>
 		</Provider>
 	);

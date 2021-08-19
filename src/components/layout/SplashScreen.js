@@ -1,7 +1,8 @@
 import { CircularProgress, Paper } from '@material-ui/core'
 import React from 'react'
 
-const SplashScreen = () => {
+const SplashScreen = ({ handleMakeAppReady }) => {
+
     return (
         <Paper square elevation={0} style={{
             width: '100vw',
@@ -11,7 +12,9 @@ const SplashScreen = () => {
             alignItems: 'center',
             overflow: 'hidden'
         }}>
-            <CircularProgress />
+            <div style={{ width: '25rem', textAlign: 'center' }}>
+                <CircularProgress />
+            </div>
         </Paper>
     )
 }

@@ -1,14 +1,16 @@
 import { CssBaseline, Paper, Switch, ThemeProvider } from '@material-ui/core'
-import React from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { darkModeToggleDispatcher } from '../../redux/dispatchers/themeDispatchers'
 import { darkTheme, lightTheme } from '../../theme'
 import SplashScreen from './SplashScreen'
 
-const AppLayout = ({ Component, pageProps, gateLifted }) => {
+const AppLayout = ({ Component, pageProps }) => {
     const dispatch = useDispatch()
     const darkMode = useSelector(state => state.theme)
+    const [appIsReady, setAppIsReady] = useState(true)
 
+    const handleMakeAppReady = () => setAppIsReady(true)
     const handleDarkModeToggle = () => {
         dispatch(darkModeToggleDispatcher(!darkMode.isDarkMode))
     }
@@ -18,12 +20,12 @@ const AppLayout = ({ Component, pageProps, gateLifted }) => {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             {
-                gateLifted ? (
+                appIsReady ? (
                     <Paper square elevation={0}>
                         <Switch onChange={handleDarkModeToggle} checked={darkMode.isDarkMode} />
                         <Component {...pageProps} />
                     </Paper>
-                ) : <SplashScreen />
+                ) : <SplashScreen handleMakeAppReady={handleMakeAppReady} />
             }
         </ThemeProvider>
     )
