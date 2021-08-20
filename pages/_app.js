@@ -1,5 +1,4 @@
 import { useRouter } from 'next/dist/client/router';
-import Head from 'next/head';
 import NProgress from 'nprogress';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -7,6 +6,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import AppLayout from '../src/components/layout/AppLayout';
+import Page from '../src/components/layout/Page';
 import { useStore } from '../src/redux';
 
 export default function MyApp({ Component, pageProps }) {
@@ -50,11 +50,12 @@ export default function MyApp({ Component, pageProps }) {
 				loading={null}
 				persistor={persistor}
 			>
-				<Head>
-					<title>My page</title>
-					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-				</Head>
-				<AppLayout Component={Component} pageProps={pageProps} />
+				<Page
+					title='Default Title'
+					description='My Next.js default description'
+				>
+					<AppLayout Component={Component} pageProps={pageProps} />
+				</Page>
 			</PersistGate>
 		</Provider>
 	);

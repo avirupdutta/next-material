@@ -1,6 +1,6 @@
 import { createTheme } from '@material-ui/core/styles';
 
-const sharedPalette = {
+export const sharedThemePalette = {
     primary: {
         main: '#F4181C',
     },
@@ -19,13 +19,13 @@ const sharedPalette = {
 // Create a theme instance.
 export const lightTheme = createTheme({
     palette: {
-        ...sharedPalette
+        ...sharedThemePalette
     },
 });
 
 export const darkTheme = createTheme({
     palette: {
-        ...sharedPalette,
+        ...sharedThemePalette,
         type: 'dark',
         background: {
             paper: '#110000',
