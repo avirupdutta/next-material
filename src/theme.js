@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 
 const sharedPalette = {
     primary: {
@@ -17,13 +17,13 @@ const sharedPalette = {
 }
 
 // Create a theme instance.
-export const lightTheme = createMuiTheme({
+export const lightTheme = createTheme({
     palette: {
         ...sharedPalette
     },
 });
 
-export const darkTheme = createMuiTheme({
+export const darkTheme = createTheme({
     palette: {
         ...sharedPalette,
         type: 'dark',

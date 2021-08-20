@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prettier": "prettier --write \"**/*.{html,js,json,md,mdx,mjs,yml}\"",
+    "clean:install": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf .next/ && npm install"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",

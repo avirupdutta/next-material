@@ -3,7 +3,7 @@ import { useStore } from '../redux';
 const queryString = require('query-string');
 
 const config = {
-    checkToken: false,
+    checkToken: true,
     headers: {}
 }
 
@@ -12,8 +12,24 @@ const config = {
 function Request(AxiosInstance) {
     const Axios = AxiosInstance;
 
+    const getResponse = (data, error) => {
+        return {
+            data,
+            error
+        }
+    }
+
+    const getErrorResponse = (url, message, method, body) => {
+        return getResponse(undefined, {
+            url,
+            message,
+            method,
+            body
+        })
+    }
+
     const makeRequestAsPerMethod = async (url, method, options, body, axiosOptions) => {
-        let data = null;
+        let response = null;
         let authHeader = {};
         let token;
 
@@ -27,15 +43,14 @@ function Request(AxiosInstance) {
                     };
                 }
                 else {
-                    console.log('You have enabled token check for this API but token was not found! Make sure you have auth object with token field in your redux store.', {
-                        url, method, options, body, axiosOptions
-                    })
-                    return
+                    const message = 'You have enabled token check for this API but token was not found! Make sure you have auth object with token field in your redux store.'
+                    console.log("%c Token not found error:", 'background: #000; color: #edff4a', message);
+                    return getErrorResponse(message, url, method, body)
                 };
             }
             switch (method.toUpperCase()) {
                 case "GET":
-                    data = await Axios.get(url, {
+                    response = await Axios.get(url, {
                         headers: {
                             ...options.headers,
                             ...authHeader,
@@ -44,7 +59,7 @@ function Request(AxiosInstance) {
                     break;
                 case "POST":
                     const { params } = body;
-                    data = await Axios.post(url, body, {
+                    response = await Axios.post(url, body, {
                         ...axiosOptions,
                         headers: {
                             ...options.headers,
@@ -54,7 +69,7 @@ function Request(AxiosInstance) {
                     });
                     break;
                 case "PUT":
-                    data = await Axios.put(url, body, {
+                    response = await Axios.put(url, body, {
                         ...axiosOptions,
                         headers: {
                             ...options.headers,
@@ -63,7 +78,7 @@ function Request(AxiosInstance) {
                     });
                     break;
                 case "DELETE":
-                    data = await Axios.delete(url, {
+                    response = await Axios.delete(url, {
                         headers: {
                             ...options.headers,
                             ...authHeader,
@@ -74,12 +89,12 @@ function Request(AxiosInstance) {
                     break;
             }
         } catch (error) {
-            console.log("URL ERRRO", url);
-            console.warn(`An error occured while requesting a url : ${url} \n Error: ${JSON.stringify(error?.response?.data)}`);
+            console.log("%c URL ERROR:", 'background: #000; color: #ff4a4a', `An error occured while requesting a url : ${url} \n Error: ${JSON.stringify(error.message)}`);
+            return getErrorResponse(error.message, url, method, body)
         }
         finally {
-            if (data) {
-                return data.data;
+            if (response) {
+                return getResponse(response.data, undefined)
             }
         }
     }

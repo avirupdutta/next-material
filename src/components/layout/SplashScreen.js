@@ -1,9 +1,14 @@
-import { CircularProgress, Paper } from '@material-ui/core'
-import React from 'react'
+import { CircularProgress, Paper } from '@material-ui/core';
+import React from 'react';
 
 const SplashScreen = ({ handleMakeAppReady = () => { } }) => {
     React.useEffect(() => {
-        setTimeout(handleMakeAppReady, 2000)
+        let timeoutId;
+        timeoutId = setTimeout(handleMakeAppReady, 2000)
+
+        return () => {
+            clearTimeout(timeoutId)
+        }
     }, [])
 
     return (
