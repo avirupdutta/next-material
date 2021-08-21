@@ -52,6 +52,9 @@ export default function Login({ users }) {
                 <Typography variant="h4" component="h1" gutterBottom>
                     Next.js example - {auth.user ?? 'Anonymous'}
                 </Typography>
+                <Typography color='textSecondary' component="p" gutterBottom>
+                    This is a subtitle text
+                </Typography>
 
                 <Button onClick={auth.token ? handleLogout : handleLogin} variant="contained" color="primary">
                     {auth.token ? 'Logout' : 'Login'}

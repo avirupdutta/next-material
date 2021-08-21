@@ -12,10 +12,10 @@ const PostById = ({ post }) => {
 // This function gets called at build time
 export async function getStaticPaths() {
     // Call an external API endpoint to get posts
-    const posts = await getAllPosts()
+    const response = await getAllPosts()
 
     // Get the paths we want to pre-render based on posts
-    const paths = posts.map((post) => ({
+    const paths = response.data.map((post) => ({
         params: { id: post.id.toString() },
     }))
 
@@ -30,11 +30,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
     // params contains the post `id`.
     // If the route is like /posts/1, then params.id is 1
-    const post = await getPostById(params.id)
+    const response = await getPostById(params.id)
 
     // Pass post data to the page via props
     return {
-        props: { post },
+        props: { post: response.data },
     }
 }
 

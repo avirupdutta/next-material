@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from '../../src/Link'
-import { getAllPosts } from '../../src/services/authService'
+import { getLocalPosts } from '../../src/services/authService'
 
 const Posts = ({ posts }) => {
     return (
         <div>
             {posts.map(each => (
                 <p key={each.id}>
-                    <Link naked href={`/posts/${each.id}`}>{each.title}</Link>
+                    <Link color='textPrimary' href={`/posts/${each.id}`}>{each.title}</Link>
                 </p>
             )
             )}
@@ -15,12 +15,29 @@ const Posts = ({ posts }) => {
     )
 }
 
-export const getStaticProps = async (context) => {
-    const posts = await getAllPosts();
-    return {
-        props: {
-            posts
+// export const getStaticProps = async (context) => {
+//     const response = await getLocalPosts();
+//     return {
+//         props: {
+//             posts: response.data
+//         },
+//         revalidate: 10
+//     }
+// }
+
+export const getServerSideProps = async (context) => {
+    const response = await getLocalPosts();
+
+    if (response.data && !response.error) {
+        return {
+            props: {
+                posts: response.data
+            }
         }
+    }
+
+    return {
+        notFound: true
     }
 }
 

@@ -73,17 +73,6 @@ const Page = ({
           href="https://cdn.usefathom.com"
           rel="preconnect"
         /> */}
-                <link
-                    as="style"
-                    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap"
-                    rel="preload"
-                />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap"
-                    media="print"
-                    onLoad="this.media='all'"
-                    rel="stylesheet"
-                />
                 {url && <link href={canonical} rel="canonical" />}
                 <meta content="en_US" property="og:locale" />
                 <meta content={formattedTitle} property="og:title" />

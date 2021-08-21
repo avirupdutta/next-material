@@ -1,8 +1,9 @@
-import { CssBaseline, Paper, Switch, ThemeProvider } from '@material-ui/core'
+import { Paper, Switch, ThemeProvider } from '@material-ui/core'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { darkModeToggleDispatcher } from '../../redux/dispatchers/themeDispatchers'
 import { darkTheme, lightTheme } from '../../theme'
+import CssBaseline from '../common/CssBaseLine'
 import SplashScreen from './SplashScreen'
 
 const AppLayout = ({ Component, pageProps }) => {

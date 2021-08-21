@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "prettier": "prettier --write \"**/*.{html,js,json,md,mdx,mjs,yml}\"",
-    "clean:install": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf .next/ && npm install"
+    "clean:install": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf .next/ && npm install",
+    "lint": "next lint"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
+    "color": "^4.0.1",
     "nanoid": "^3.1.25",
     "next": "11.1.0",
     "nprogress": "^0.2.0",
@@ -26,5 +28,9 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "swr": "^0.5.6"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.0"
   }
 }
