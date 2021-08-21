@@ -1,5 +1,4 @@
 import React from 'react'
-import { getAllPosts, getPostById } from '../../src/services/authService'
 
 const PostById = ({ post }) => {
     return (
@@ -8,7 +7,7 @@ const PostById = ({ post }) => {
         </div>
     )
 }
-
+/**
 // This function gets called at build time
 export async function getStaticPaths() {
     // Call an external API endpoint to get posts
@@ -37,5 +36,5 @@ export async function getStaticProps({ params }) {
         props: { post: response.data },
     }
 }
-
+*/
 export default PostById
