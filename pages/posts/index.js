@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from '../../src/Link'
-import { getLocalPosts } from '../../src/services/authService'
 
 const Posts = ({ posts }) => {
     return (
@@ -24,7 +23,7 @@ const Posts = ({ posts }) => {
 //         revalidate: 10
 //     }
 // }
-
+/**
 export const getServerSideProps = async (context) => {
     const response = await getLocalPosts();
 
@@ -40,5 +39,5 @@ export const getServerSideProps = async (context) => {
         notFound: true
     }
 }
-
+*/
 export default Posts
