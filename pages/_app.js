@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
 import AppLayout from '../src/components/layout/AppLayout';
 import Page from '../src/components/layout/Page';
 import { useStore } from '../src/redux';
@@ -46,17 +45,12 @@ export default function MyApp({ Component, pageProps }) {
 
 	return (
 		<Provider store={store}>
-			<PersistGate
-				loading={null}
-				persistor={persistor}
+			<Page
+				title='Default Title'
+				description='My Next.js default description'
 			>
-				<Page
-					title='Default Title'
-					description='My Next.js default description'
-				>
-					<AppLayout Component={Component} pageProps={pageProps} />
-				</Page>
-			</PersistGate>
+				<AppLayout Component={Component} pageProps={pageProps} />
+			</Page>
 		</Provider>
 	);
 }
